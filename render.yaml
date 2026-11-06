@@ -24,8 +24,7 @@ services:
         fromDatabase:
           name: diario-cptm-db
           property: connectionString
-      - key: PAYLOAD_SECRET   pnpm remove @payloadcms/figma @payloadcms/plugin-mcp @payloadcms/plugin-cloud-storage
-   pnpm add @payloadcms/db-postgres@4.0.0-beta.6
+      - key: PAYLOAD_SECRET
         generateValue: true
       - key: NEXT_PUBLIC_SITE_URL
         sync: false            # você digita no painel: https://SEU-SERVICO.onrender.com
