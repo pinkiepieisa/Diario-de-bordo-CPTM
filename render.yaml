@@ -1,0 +1,35 @@
+# Fica na RAIZ do repositório (ao lado da pasta Diario-de-Bordo-CPTM).
+# Nenhum segredo aqui: os valores são gerados/ligados/preenchidos no painel do Render.
+databases:
+  - name: diario-cptm-db
+    plan: basic-256mb          # pago e pequeno. Para só testar: free (expira, ver guia)
+    region: oregon             # mesma região do web service
+    databaseName: diario_cptm
+    user: cptm
+ 
+services:
+  - type: web
+    name: diario-cptm
+    runtime: node
+    rootDir: Diario-de-Bordo-CPTM
+    plan: starter              # 512 MB sem hibernar; free pode estourar memória no build
+    region: oregon
+    buildCommand: pnpm install --frozen-lockfile && pnpm build
+    startCommand: pnpm payload migrate && pnpm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 24.22.1
+      - key: DATABASE_URL
+        fromDatabase:
+          name: diario-cptm-db
+          property: connectionString
+      - key: PAYLOAD_SECRET   pnpm remove @payloadcms/figma @payloadcms/plugin-mcp @payloadcms/plugin-cloud-storage
+   pnpm add @payloadcms/db-postgres@4.0.0-beta.6
+        generateValue: true
+      - key: NEXT_PUBLIC_SITE_URL
+        sync: false            # você digita no painel: https://SEU-SERVICO.onrender.com
+      - key: ADMIN_EMAIL
+        sync: false            # e-mail do 1º administrador do /admin
+      - key: ADMIN_PASSWORD
+        sync: false            # senha do 1º administrador (mín. 8 caracteres)
