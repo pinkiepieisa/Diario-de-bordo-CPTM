@@ -32,7 +32,7 @@ export default buildConfig({
     fallbackLanguage: 'pt',
     supportedLanguages: { pt: adminLanguage },
   },
-  collections: [Admins, Users, Media, Folders, Tags],
+  collections: [Admins, Users],
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
   localization: {
     locales: [{ code: 'en', label: 'English' }],
